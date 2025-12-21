@@ -15,6 +15,11 @@ body {
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
 }
 
 @layer utilities {
@@ -23,8 +28,17 @@ body {
   }
 }
 
-/* Smooth scrolling */
+/* Fixed layout */
 html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Smooth scrolling for internal document only */
+.overflow-y-auto {
   scroll-behavior: smooth;
 }
 
