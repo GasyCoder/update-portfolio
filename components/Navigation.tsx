@@ -15,10 +15,7 @@ export default function Navigation() {
           {/* Logo/Brand */}
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-white">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-xs font-bold text-white shadow-lg">
-                GC
-              </span>
-              <span className="hidden sm:inline">GasyCoder</span>
+
             </div>
           </div>
 
@@ -31,18 +28,6 @@ export default function Navigation() {
             >
               <Languages size={16} strokeWidth={2} />
               <span className="hidden sm:inline">{language === 'fr' ? 'FR' : 'EN'}</span>
-            </button>
-
-            <button
-              onClick={toggleTheme}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300/80 bg-white text-slate-700 transition hover:bg-slate-50 dark:border-white/20 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/15"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <Sun size={16} strokeWidth={2} />
-              ) : (
-                <Moon size={16} strokeWidth={2} />
-              )}
             </button>
           </div>
         </div>

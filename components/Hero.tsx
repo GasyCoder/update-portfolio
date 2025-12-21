@@ -19,7 +19,7 @@ export default function Hero() {
         <div className="relative flex-shrink-0">
           <div className="absolute -left-4 -top-4 h-16 w-16 rounded-full bg-gradient-to-br from-indigo-200 via-sky-200 to-transparent blur-2xl dark:from-indigo-600/30 dark:via-sky-500/25" />
           <Image
-            src="/profile.jpg"
+            src="/profile.jpeg"
             alt="GasyCoder Profile"
             width={120}
             height={120}
@@ -38,7 +38,7 @@ export default function Hero() {
           </div>
           <div className="space-y-3">
             <h1 className="text-3xl font-semibold leading-tight text-slate-900 dark:text-white md:text-4xl">
-              GasyCoder
+              Backend Developer | Fullstack TALL | Build AI Tools | NodeJs
             </h1>
             <p className="text-base text-slate-600 dark:text-slate-300 md:text-lg">
               {t.hero.description}

@@ -33,20 +33,9 @@ export default function GitHubSidebar() {
             BEZARA Florent
           </h1>
           <p className="text-base text-gray-600 dark:text-gray-400 font-medium transition-colors duration-200">
-            GasyCoder
+            Backend Developer | Fullstack TALL | Build AI Tools | NodeJs
           </p>
         </div>
-
-        {/* CEO Title */}
-        <div className="flex items-center justify-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-md">
-          <Briefcase size={16} strokeWidth={2} className="text-white" />
-          <span className="text-white font-semibold text-xs">CEO & Founder at GasyCoder</span>
-        </div>
-
-        {/* Bio */}
-        <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed text-center transition-colors duration-200">
-          {t.hero.role}
-        </p>
 
         {/* Divider */}
         <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent transition-colors duration-200" />
