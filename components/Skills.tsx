@@ -1,0 +1,107 @@
+'use client';
+
+import { useLanguage } from '@/lib/LanguageContext';
+import { Sparkles } from 'lucide-react';
+
+interface Skill {
+  name: string;
+}
+
+interface SkillCategory {
+  title: string;
+  skills: Skill[];
+}
+
+export default function Skills() {
+  const { t } = useLanguage();
+
+  const skillCategories: SkillCategory[] = [
+    {
+      title: t.skills.frontend,
+      skills: [
+        { name: 'React' },
+        { name: 'Next.js' },
+        { name: 'TypeScript' },
+        { name: 'Tailwind CSS' },
+        { name: 'Vue.js' },
+      ],
+    },
+    {
+      title: t.skills.backend,
+      skills: [
+        { name: 'Node.js' },
+        { name: 'Express' },
+        { name: 'MongoDB' },
+        { name: 'PostgreSQL' },
+        { name: 'GraphQL' },
+      ],
+    },
+    {
+      title: t.skills.tools,
+      skills: [
+        { name: 'Git' },
+        { name: 'Docker' },
+        { name: 'VS Code' },
+        { name: 'Figma' },
+        { name: 'Postman' },
+      ],
+    },
+    {
+      title: t.skills.other,
+      skills: [
+        { name: 'REST API' },
+        { name: 'Responsive Design' },
+        { name: 'UI/UX' },
+        { name: 'Agile/Scrum' },
+        { name: 'Testing' },
+      ],
+    },
+  ];
+
+  const otherTech = ['HTML5', 'CSS3', 'JavaScript', 'Sass', 'Redux', 'Next Auth', 'Prisma', 'Jest', 'Cypress', 'Webpack', 'Vite', 'NPM', 'Yarn'];
+
+  return (
+    <section id="skills" className="rounded-3xl border border-slate-200/70 bg-white/70 p-6 shadow-md shadow-slate-200/30 backdrop-blur-xl dark:border-white/5 dark:bg-white/5 md:p-10">
+      <div className="flex items-start gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+        <Sparkles size={14} />
+        {t.skills.title}
+      </div>
+
+      <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {skillCategories.map((category, categoryIndex) => (
+          <div
+            key={categoryIndex}
+            className="rounded-2xl border border-slate-200/70 bg-gradient-to-br from-white/90 to-slate-50/70 p-5 shadow-sm dark:border-white/5 dark:from-white/10 dark:to-slate-900"
+          >
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-white">{category.title}</h3>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {category.skills.map((skill, skillIndex) => (
+                <span
+                  key={skillIndex}
+                  className="rounded-full border border-slate-200/80 bg-white/80 px-3 py-1.5 text-sm font-medium text-slate-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-slate-200"
+                >
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 via-sky-50 to-white p-5 shadow-sm dark:border-indigo-500/20 dark:from-indigo-500/10 dark:via-slate-900 dark:to-slate-950">
+          <h3 className="text-sm font-semibold text-indigo-700 dark:text-indigo-100">Other Technologies</h3>
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Curated tools and platforms I enjoy using on projects.</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {otherTech.map((tech, index) => (
+              <span
+                key={index}
+                className="rounded-full border border-indigo-100 bg-white/80 px-3 py-1.5 text-sm font-medium text-indigo-700 shadow-sm dark:border-indigo-500/30 dark:bg-indigo-500/10 dark:text-indigo-100"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

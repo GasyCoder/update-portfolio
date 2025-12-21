@@ -1,0 +1,145 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { fetchGitHubContributions, type GitHubContribution } from '@/lib/github';
+
+export default function ContributionGraph() {
+  const [contributions, setContributions] = useState<GitHubContribution[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [totalContributions, setTotalContributions] = useState(0);
+
+  useEffect(() => {
+    async function loadContributions() {
+      try {
+        const data = await fetchGitHubContributions();
+        setContributions(data);
+        setTotalContributions(data.reduce((sum, day) => sum + day.count, 0));
+      } catch (error) {
+        console.error('Error loading contributions:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadContributions();
+  }, []);
+
+  const getContributionColor = (level: number) => {
+    const colors = {
+      0: 'bg-gray-100 dark:bg-gray-800',
+      1: 'bg-green-200 dark:bg-green-900',
+      2: 'bg-green-400 dark:bg-green-700',
+      3: 'bg-green-600 dark:bg-green-500',
+      4: 'bg-green-700 dark:bg-green-400',
+    };
+    return colors[level as keyof typeof colors] || colors[0];
+  };
+
+  // Group contributions by weeks
+  const groupByWeeks = () => {
+    const weeks: GitHubContribution[][] = [];
+    let currentWeek: GitHubContribution[] = [];
+
+    contributions.forEach((contribution, index) => {
+      const date = new Date(contribution.date);
+      const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
+
+      currentWeek.push(contribution);
+
+      // If it's Saturday or the last contribution, push the week
+      if (dayOfWeek === 6 || index === contributions.length - 1) {
+        weeks.push([...currentWeek]);
+        currentWeek = [];
+      }
+    });
+
+    return weeks;
+  };
+
+  const weeks = groupByWeeks();
+
+  if (loading) {
+    return (
+      <div className="mb-8">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          Contribution Activity
+        </h2>
+        <div className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900 animate-pulse">
+          <div className="h-32 bg-gray-200 dark:bg-gray-800 rounded" />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mb-8">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+          Contribution Activity
+        </h2>
+        {totalContributions > 0 && (
+          <span className="text-sm text-gray-600 dark:text-gray-400">
+            {totalContributions} contributions in the last year
+          </span>
+        )}
+      </div>
+
+      <div className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900">
+        {contributions.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-600 dark:text-gray-400 mb-2">
+              No contribution data available
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-500">
+              To display your GitHub contribution graph, add a GitHub token to{' '}
+              <code className="px-1 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-xs">
+                .env.local
+              </code>
+            </p>
+            <p className="text-xs text-gray-400 dark:text-gray-600 mt-2">
+              See{' '}
+              <a
+                href="https://github.com/settings/tokens"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-600 dark:hover:text-gray-400"
+              >
+                GitHub Settings
+              </a>{' '}
+              to generate a token
+            </p>
+          </div>
+        ) : (
+          <>
+            {/* Contribution grid */}
+            <div className="flex gap-1 overflow-x-auto pb-2">
+              {weeks.map((week, weekIndex) => (
+                <div key={weekIndex} className="flex flex-col gap-1">
+                  {week.map((day) => (
+                    <div
+                      key={day.date}
+                      className={`w-3 h-3 rounded-sm ${getContributionColor(day.level)} transition-colors`}
+                      title={`${day.count} contributions on ${new Date(day.date).toLocaleDateString()}`}
+                    />
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            {/* Legend */}
+            <div className="flex items-center gap-2 mt-4 text-xs text-gray-600 dark:text-gray-400">
+              <span>Less</span>
+              {[0, 1, 2, 3, 4].map((level) => (
+                <div
+                  key={level}
+                  className={`w-3 h-3 rounded-sm ${getContributionColor(level)}`}
+                />
+              ))}
+              <span>More</span>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
