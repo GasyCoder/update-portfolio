@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { ExternalLink, Github, Star, GitFork } from 'lucide-react';
-import { getTopRepositories, getLanguageColor, type GitHubRepo } from '@/lib/github';
+import { fetchPinnedRepositories, getLanguageColor, type GitHubRepo } from '@/lib/github';
 
 interface TechBadge {
   name: string;
@@ -100,10 +100,10 @@ export default function PinnedRepos() {
   useEffect(() => {
     async function loadRepos() {
       try {
-        const repos = await getTopRepositories(6);
+        const repos = await fetchPinnedRepositories();
         setRepositories(repos);
       } catch (error) {
-        console.error('Error loading repositories:', error);
+        console.error('Error loading pinned repositories:', error);
       } finally {
         setLoading(false);
       }
@@ -117,7 +117,7 @@ export default function PinnedRepos() {
       <div>
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
           <Github size={20} strokeWidth={1.5} />
-          Top Repositories
+          Pinned Repositories
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {[...Array(6)].map((_, i) => (
@@ -139,12 +139,12 @@ export default function PinnedRepos() {
     <div>
       <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4 flex items-center gap-2">
         <Github size={20} strokeWidth={1.5} />
-        Top Repositories ({repositories.length})
+        Pinned Repositories ({repositories.length})
       </h2>
 
       {repositories.length === 0 ? (
         <div className="p-8 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900 text-center">
-          <p className="text-gray-600 dark:text-gray-400">No repositories found</p>
+          <p className="text-gray-600 dark:text-gray-400">No pinned repositories found</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
