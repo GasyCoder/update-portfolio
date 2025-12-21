@@ -45,21 +45,21 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-6 border-b border-white/10">
-      <h2 className="text-lg font-medium text-white mb-3">
+    <section id="projects" className="py-6 border-b border-gray-200 dark:border-white/10">
+      <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-3">
         {t.projects.title}
       </h2>
 
       <div className="space-y-4">
         {projects.map((project, index) => (
-          <div key={index} className="border-l-2 border-white/20 pl-3">
-            <h3 className="text-sm font-medium text-white">
+          <div key={index} className="border-l-2 border-gray-300 dark:border-white/20 pl-3">
+            <h3 className="text-sm font-medium text-gray-900 dark:text-white">
               {project.title}
             </h3>
-            <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+            <p className="text-xs text-gray-700 dark:text-gray-500 mt-1 leading-relaxed">
               {project.description}
             </p>
-            <div className="flex flex-wrap gap-2 mt-2 text-xs text-gray-600">
+            <div className="flex flex-wrap gap-2 mt-2 text-xs text-gray-600 dark:text-gray-600">
               {project.technologies.map((tech, techIndex) => (
                 <span key={techIndex}>{tech}</span>
               ))}
@@ -70,7 +70,7 @@ export default function Projects() {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-gray-400 hover:text-white"
+                  className="flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
                   <ExternalLink size={12} />
                   {t.projects.viewProject}
@@ -81,7 +81,7 @@ export default function Projects() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-gray-400 hover:text-white"
+                  className="flex items-center gap-1 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
                   <Github size={12} />
                   {t.projects.viewCode}
