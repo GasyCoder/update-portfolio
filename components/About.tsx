@@ -13,55 +13,37 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-32 border-t border-white/5">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-2xl font-light text-white mb-20">
-          {t.about.title}
-        </h2>
+    <section id="about" className="py-6 border-b border-white/10">
+      <h2 className="text-lg font-medium text-white mb-3">
+        {t.about.title}
+      </h2>
 
-        <div className="grid md:grid-cols-2 gap-16">
-          {/* Left side - Content */}
-          <div className="space-y-8">
-            <p className="text-base text-gray-400 leading-relaxed">
-              {t.about.description}
-            </p>
+      <p className="text-sm text-gray-400 leading-relaxed mb-4">
+        {t.about.description}
+      </p>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 pt-4">
-              {stats.map((stat, index) => (
-                <div key={index} className="border-l border-white/10 pl-4">
-                  <div className="text-2xl font-light text-white">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Additional Info */}
-            <div className="flex flex-col gap-3 pt-4">
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <MapPin size={16} strokeWidth={1.5} />
-                <span>Madagascar</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <Briefcase size={16} strokeWidth={1.5} />
-                <span>Full Stack Developer</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <Target size={16} strokeWidth={1.5} />
-                <span>Open to opportunities</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right side - Placeholder */}
-          <div className="hidden md:block">
-            <div className="aspect-square bg-white/5 border border-white/10" />
-          </div>
+      <div className="flex gap-6 text-xs text-gray-500 mb-3">
+        <div className="flex items-center gap-2">
+          <MapPin size={14} strokeWidth={1.5} />
+          <span>Madagascar</span>
         </div>
+        <div className="flex items-center gap-2">
+          <Briefcase size={14} strokeWidth={1.5} />
+          <span>Full Stack Developer</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Target size={14} strokeWidth={1.5} />
+          <span>Open to opportunities</span>
+        </div>
+      </div>
+
+      <div className="flex gap-6 text-xs">
+        {stats.map((stat, index) => (
+          <div key={index}>
+            <span className="text-white font-medium">{stat.value}</span>
+            <span className="text-gray-500 ml-1">{stat.label}</span>
+          </div>
+        ))}
       </div>
     </section>
   );

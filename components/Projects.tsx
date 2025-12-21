@@ -45,68 +45,51 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="py-32 border-t border-white/5">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-2xl font-light text-white mb-20">
-          {t.projects.title}
-        </h2>
+    <section id="projects" className="py-6 border-b border-white/10">
+      <h2 className="text-lg font-medium text-white mb-3">
+        {t.projects.title}
+      </h2>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="group border border-white/10 p-6 hover:bg-white/5 transition-colors"
-            >
-              {/* Project Title */}
-              <h3 className="text-lg font-medium text-white mb-2">
-                {project.title}
-              </h3>
-
-              {/* Project Description */}
-              <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-                {project.description}
-              </p>
-
-              {/* Technologies */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.technologies.map((tech, techIndex) => (
-                  <span
-                    key={techIndex}
-                    className="text-xs text-gray-500"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* Links */}
-              <div className="flex gap-4 text-sm">
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-                  >
-                    <ExternalLink size={14} strokeWidth={1.5} />
-                    {t.projects.viewProject}
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
-                  >
-                    <Github size={14} strokeWidth={1.5} />
-                    {t.projects.viewCode}
-                  </a>
-                )}
-              </div>
+      <div className="space-y-4">
+        {projects.map((project, index) => (
+          <div key={index} className="border-l-2 border-white/20 pl-3">
+            <h3 className="text-sm font-medium text-white">
+              {project.title}
+            </h3>
+            <p className="text-xs text-gray-500 mt-1 leading-relaxed">
+              {project.description}
+            </p>
+            <div className="flex flex-wrap gap-2 mt-2 text-xs text-gray-600">
+              {project.technologies.map((tech, techIndex) => (
+                <span key={techIndex}>{tech}</span>
+              ))}
             </div>
-          ))}
-        </div>
+            <div className="flex gap-3 mt-2 text-xs">
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-gray-400 hover:text-white"
+                >
+                  <ExternalLink size={12} />
+                  {t.projects.viewProject}
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-gray-400 hover:text-white"
+                >
+                  <Github size={12} />
+                  {t.projects.viewCode}
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
