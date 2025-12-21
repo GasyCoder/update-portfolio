@@ -166,6 +166,96 @@ export async function fetchGitHubContributions(): Promise<GitHubContribution[]> 
 }
 
 /**
+ * Fetch pinned repositories using GitHub GraphQL API
+ */
+export async function fetchPinnedRepositories(): Promise<GitHubRepo[]> {
+  try {
+    const token = process.env.NEXT_PUBLIC_GITHUB_TOKEN;
+
+    if (!token) {
+      console.warn('GitHub token not found. Using top repositories instead of pinned ones.');
+      console.warn('To enable pinned repos: Add NEXT_PUBLIC_GITHUB_TOKEN to your .env.local file');
+      return getTopRepositories(6);
+    }
+
+    const query = `
+      query {
+        user(login: "${GITHUB_USERNAME}") {
+          pinnedItems(first: 6, types: REPOSITORY) {
+            nodes {
+              ... on Repository {
+                id
+                name
+                description
+                url
+                homepageUrl
+                primaryLanguage {
+                  name
+                }
+                stargazerCount
+                forkCount
+                updatedAt
+                repositoryTopics(first: 10) {
+                  nodes {
+                    topic {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const response = await fetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/vnd.github.v4+json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ query }),
+      next: { revalidate: 3600 }, // Cache for 1 hour
+    });
+
+    if (!response.ok) {
+      throw new Error(`GitHub GraphQL API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (data.errors) {
+      console.error('GraphQL errors:', data.errors);
+      return getTopRepositories(6);
+    }
+
+    const pinnedNodes = data.data?.user?.pinnedItems?.nodes || [];
+
+    // Transform GraphQL response to match GitHubRepo interface
+    const pinnedRepos: GitHubRepo[] = pinnedNodes.map((node: any) => ({
+      id: parseInt(node.id.replace('R_kgDO', ''), 36) || Math.random(), // Convert GitHub node ID or use random fallback
+      name: node.name,
+      description: node.description,
+      html_url: node.url,
+      homepage: node.homepageUrl,
+      language: node.primaryLanguage?.name || null,
+      stargazers_count: node.stargazerCount,
+      forks_count: node.forkCount,
+      updated_at: node.updatedAt,
+      topics: node.repositoryTopics?.nodes?.map((n: any) => n.topic.name) || [],
+    }));
+
+    return pinnedRepos;
+  } catch (error) {
+    console.error('Error fetching pinned repositories:', error);
+    // Fallback to top repositories
+    return getTopRepositories(6);
+  }
+}
+
+/**
  * Get the top repositories (pinned or most popular)
  */
 export async function getTopRepositories(limit: number = 6): Promise<GitHubRepo[]> {
