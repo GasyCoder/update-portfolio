@@ -9,40 +9,43 @@ export default function Navigation() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <nav className="flex items-center justify-between gap-3 rounded-2xl border border-slate-200/70 bg-white/70 p-3 shadow-sm backdrop-blur-md dark:border-white/5 dark:bg-white/5">
-      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-slate-500 dark:text-slate-300">
-        <span className="h-2 w-2 rounded-full bg-gradient-to-br from-sky-500 to-indigo-500" />
-        GasyCoder
-      </div>
-      <div className="flex items-center gap-2">
-        <button
-          onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
-          className="flex items-center gap-2 rounded-xl border border-slate-200/70 bg-white/70 px-3 py-2 text-sm font-medium text-slate-700 transition hover:-translate-y-0.5 hover:border-indigo-200 hover:text-indigo-700 dark:border-white/5 dark:bg-white/5 dark:text-slate-200 dark:hover:border-indigo-500/40 dark:hover:text-white"
-          aria-label="Change language"
-        >
-          <Languages size={18} strokeWidth={1.5} />
-          <span className="hidden sm:inline">{language === 'fr' ? 'FR' : 'EN'}</span>
-        </button>
-
-        <button
-          onClick={toggleTheme}
-          className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl border border-slate-200/70 bg-white/70 transition hover:-translate-y-0.5 hover:border-indigo-200 dark:border-white/5 dark:bg-white/5 dark:hover:border-indigo-500/40"
-          aria-label="Toggle theme"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-sky-100 via-white to-indigo-100 opacity-0 transition group-hover:opacity-100 dark:from-sky-500/20 dark:via-white/5 dark:to-indigo-600/20" />
-          <div className="relative">
-            <Sun
-              size={18}
-              strokeWidth={1.5}
-              className={`absolute inset-0 transition-all duration-300 ${theme === 'dark' ? 'rotate-0 scale-100 opacity-100' : 'rotate-90 scale-0 opacity-0'}`}
-            />
-            <Moon
-              size={18}
-              strokeWidth={1.5}
-              className={`absolute inset-0 transition-all duration-300 ${theme === 'dark' ? '-rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'}`}
-            />
+    <nav className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-md dark:border-white/10 dark:bg-[#0d1117]/95">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo/Brand */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-white">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-sky-500 to-indigo-600 text-xs font-bold text-white shadow-lg">
+                GC
+              </span>
+              <span className="hidden sm:inline">GasyCoder</span>
+            </div>
           </div>
-        </button>
+
+          {/* Actions */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
+              className="flex items-center gap-2 rounded-lg border border-slate-300/80 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50 dark:border-white/20 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/15"
+              aria-label="Change language"
+            >
+              <Languages size={16} strokeWidth={2} />
+              <span className="hidden sm:inline">{language === 'fr' ? 'FR' : 'EN'}</span>
+            </button>
+
+            <button
+              onClick={toggleTheme}
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300/80 bg-white text-slate-700 transition hover:bg-slate-50 dark:border-white/20 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/15"
+              aria-label="Toggle theme"
+            >
+              {theme === 'dark' ? (
+                <Sun size={16} strokeWidth={2} />
+              ) : (
+                <Moon size={16} strokeWidth={2} />
+              )}
+            </button>
+          </div>
+        </div>
       </div>
     </nav>
   );
