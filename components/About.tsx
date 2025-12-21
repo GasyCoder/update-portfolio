@@ -13,16 +13,16 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-6 border-b border-white/10">
-      <h2 className="text-lg font-medium text-white mb-3">
+    <section id="about" className="py-6 border-b border-gray-200 dark:border-white/10">
+      <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-3">
         {t.about.title}
       </h2>
 
-      <p className="text-sm text-gray-400 leading-relaxed mb-4">
+      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
         {t.about.description}
       </p>
 
-      <div className="flex gap-6 text-xs text-gray-500 mb-3">
+      <div className="flex gap-6 text-xs text-gray-700 dark:text-gray-500 mb-3">
         <div className="flex items-center gap-2">
           <MapPin size={14} strokeWidth={1.5} />
           <span>Madagascar</span>
@@ -40,8 +40,8 @@ export default function About() {
       <div className="flex gap-6 text-xs">
         {stats.map((stat, index) => (
           <div key={index}>
-            <span className="text-white font-medium">{stat.value}</span>
-            <span className="text-gray-500 ml-1">{stat.label}</span>
+            <span className="text-gray-900 dark:text-white font-medium">{stat.value}</span>
+            <span className="text-gray-700 dark:text-gray-500 ml-1">{stat.label}</span>
           </div>
         ))}
       </div>
