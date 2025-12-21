@@ -81,7 +81,7 @@ export default function PinnedRepos() {
         {repositories.map((repo, index) => (
           <div
             key={index}
-            className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-gray-300 dark:hover:border-gray-700 transition-colors bg-white dark:bg-[#0d1117]"
+            className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-gray-300 dark:hover:border-gray-700 transition-colors bg-white dark:bg-gray-900"
           >
             <div className="flex items-start justify-between mb-2">
               <a

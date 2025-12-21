@@ -63,7 +63,7 @@ export default function TechStackBadges() {
         Tech Stack
       </h2>
 
-      <div className="p-6 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-[#0d1117] space-y-6">
+      <div className="p-6 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900 space-y-6">
         <Section title="Backend" badges={techStack.backend} />
         <Section title="Frontend" badges={techStack.frontend} />
         <Section title="Data & Infrastructure" badges={techStack.data} />

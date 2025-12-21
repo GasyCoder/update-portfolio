@@ -41,7 +41,7 @@ export default function ContributionGraph() {
         Contribution Activity
       </h2>
 
-      <div className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-[#0d1117]">
+      <div className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900">
         {/* Month labels */}
         <div className="flex gap-1 mb-2 text-xs text-gray-600 dark:text-gray-400 ml-8">
           {months.map((month, index) => (
