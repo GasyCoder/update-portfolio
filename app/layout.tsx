@@ -30,7 +30,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans antialiased bg-white text-slate-900 dark:bg-gray-900 dark:text-white transition-colors duration-200">
         <ThemeProvider>
           <LanguageProvider>
             {children}
