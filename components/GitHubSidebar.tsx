@@ -18,7 +18,7 @@ export default function GitHubSidebar() {
               alt="GasyCoder Profile"
               width={180}
               height={180}
-              className="rounded-full border-2 border-gray-200 dark:border-gray-700 transition-all duration-200"
+              className="rounded-full border-2 border-gray-200 dark:border-gray-700 transition-all duration-200 object-cover aspect-square"
               priority
             />
             <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-2 border-white dark:border-gray-950 flex items-center justify-center transition-colors duration-200">
