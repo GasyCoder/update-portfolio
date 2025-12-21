@@ -86,8 +86,28 @@ export default function ContributionGraph() {
 
       <div className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900">
         {contributions.length === 0 ? (
-          <div className="text-center py-8 text-gray-600 dark:text-gray-400">
-            No contribution data available
+          <div className="text-center py-8">
+            <p className="text-gray-600 dark:text-gray-400 mb-2">
+              No contribution data available
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-500">
+              To display your GitHub contribution graph, add a GitHub token to{' '}
+              <code className="px-1 py-0.5 bg-gray-100 dark:bg-gray-800 rounded text-xs">
+                .env.local
+              </code>
+            </p>
+            <p className="text-xs text-gray-400 dark:text-gray-600 mt-2">
+              See{' '}
+              <a
+                href="https://github.com/settings/tokens"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-gray-600 dark:hover:text-gray-400"
+              >
+                GitHub Settings
+              </a>{' '}
+              to generate a token
+            </p>
           </div>
         ) : (
           <>
