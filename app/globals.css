@@ -1,11 +1,22 @@
 @import "tailwindcss";
 
-:root {
+/* Light mode colors (default) */
+:root,
+.light {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --border: #e5e5e5;
+  --accent: #0070f3;
+  --muted: #666666;
+}
+
+/* Dark mode colors */
+.dark {
   --background: #050505;
   --foreground: #e5e5e5;
   --border: #1a1a1a;
   --accent: #ffffff;
-  --muted: #666666;
+  --muted: #999999;
 }
 
 body {
