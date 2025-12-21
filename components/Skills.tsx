@@ -57,49 +57,48 @@ export default function Skills() {
     },
   ];
 
+  const allSkills = skillCategories.flatMap(cat => cat.skills.map(s => s.name));
+  const otherTech = ['HTML5', 'CSS3', 'JavaScript', 'Sass', 'Redux', 'Next Auth', 'Prisma', 'Jest', 'Cypress', 'Webpack', 'Vite', 'NPM', 'Yarn'];
+
   return (
-    <section id="skills" className="py-10 border-b border-gray-200 dark:border-white/10">
-      <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+    <section id="skills" className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-800">
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
         {t.skills.title}
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="space-y-6">
         {skillCategories.map((category, categoryIndex) => (
-          <div
-            key={categoryIndex}
-            className="p-5 bg-gradient-to-br from-gray-50 to-white dark:from-white/5 dark:to-white/10 rounded-xl border border-gray-200/50 dark:border-white/10 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-          >
-            <h3 className="text-sm text-gray-900 dark:text-white font-semibold mb-3 border-b border-gray-200 dark:border-white/10 pb-2">
+          <div key={categoryIndex}>
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
               {category.title}
             </h3>
-            <div className="space-y-2">
+            <div className="flex flex-wrap gap-2">
               {category.skills.map((skill, skillIndex) => (
-                <div
+                <span
                   key={skillIndex}
-                  className="text-sm text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-default flex items-center gap-2"
+                  className="text-sm text-gray-700 dark:text-gray-300 px-3 py-1.5 bg-gray-100 dark:bg-white/5 rounded-md"
                 >
-                  <span className="w-1.5 h-1.5 bg-blue-500 dark:bg-blue-400 rounded-full"></span>
                   {skill.name}
-                </div>
+                </span>
               ))}
             </div>
           </div>
         ))}
-      </div>
 
-      <div className="mt-6 pt-6 border-t border-gray-200 dark:border-white/10">
-        <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
-          Other Technologies
-        </h3>
-        <div className="flex flex-wrap gap-2">
-          {['HTML5', 'CSS3', 'JavaScript', 'Sass', 'Redux', 'Next Auth', 'Prisma', 'Jest', 'Cypress', 'Webpack', 'Vite', 'NPM', 'Yarn'].map((tech, index) => (
-            <span
-              key={index}
-              className="px-3 py-1.5 text-xs bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 rounded-lg border border-gray-200/50 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors"
-            >
-              {tech}
-            </span>
-          ))}
+        <div>
+          <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
+            Other Technologies
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {otherTech.map((tech, index) => (
+              <span
+                key={index}
+                className="text-sm text-gray-700 dark:text-gray-300 px-3 py-1.5 bg-gray-100 dark:bg-white/5 rounded-md"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>
