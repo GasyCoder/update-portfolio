@@ -61,22 +61,22 @@ export default function Skills() {
   const otherTech = ['HTML5', 'CSS3', 'JavaScript', 'Sass', 'Redux', 'Next Auth', 'Prisma', 'Jest', 'Cypress', 'Webpack', 'Vite', 'NPM', 'Yarn'];
 
   return (
-    <section id="skills" className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-800">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
+    <div className="space-y-4">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
         {t.skills.title}
       </h2>
 
-      <div className="space-y-6">
+      <div className="p-6 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-[#0d1117] space-y-6">
         {skillCategories.map((category, categoryIndex) => (
           <div key={categoryIndex}>
-            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
               {category.title}
             </h3>
             <div className="flex flex-wrap gap-2">
               {category.skills.map((skill, skillIndex) => (
                 <span
                   key={skillIndex}
-                  className="text-sm text-gray-700 dark:text-gray-300 px-3 py-1.5 bg-gray-100 dark:bg-white/5 rounded-md"
+                  className="text-sm text-blue-700 dark:text-blue-400 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-800 rounded-md font-medium"
                 >
                   {skill.name}
                 </span>
@@ -86,14 +86,14 @@ export default function Skills() {
         ))}
 
         <div>
-          <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-3">
+          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
             Other Technologies
           </h3>
           <div className="flex flex-wrap gap-2">
             {otherTech.map((tech, index) => (
               <span
                 key={index}
-                className="text-sm text-gray-700 dark:text-gray-300 px-3 py-1.5 bg-gray-100 dark:bg-white/5 rounded-md"
+                className="text-sm text-gray-700 dark:text-gray-300 px-3 py-1.5 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md"
               >
                 {tech}
               </span>
@@ -101,6 +101,6 @@ export default function Skills() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

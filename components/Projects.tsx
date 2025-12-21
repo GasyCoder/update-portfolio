@@ -45,25 +45,28 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="mb-12 pb-12 border-b border-gray-200 dark:border-gray-800">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-8">
+    <div className="space-y-4">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
         {t.projects.title}
       </h2>
 
-      <div className="space-y-8">
+      <div className="grid grid-cols-1 gap-4">
         {projects.map((project, index) => (
-          <div key={index} className="group">
-            <h3 className="text-base font-medium text-gray-900 dark:text-gray-100 mb-2">
+          <div
+            key={index}
+            className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-gray-300 dark:hover:border-gray-700 transition-colors bg-white dark:bg-[#0d1117]"
+          >
+            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100 mb-2">
               {project.title}
             </h3>
-            <p className="text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-2 mb-3">
               {project.technologies.map((tech, techIndex) => (
                 <span
                   key={techIndex}
-                  className="text-xs text-gray-600 dark:text-gray-400 px-2 py-1 bg-gray-100 dark:bg-white/5 rounded"
+                  className="text-xs text-blue-700 dark:text-blue-400 px-2 py-1 bg-blue-100 dark:bg-blue-900/30 rounded border border-blue-300 dark:border-blue-800"
                 >
                   {tech}
                 </span>
@@ -75,7 +78,7 @@ export default function Projects() {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+                  className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   <ExternalLink size={14} />
                   <span>{t.projects.viewProject}</span>
@@ -86,7 +89,7 @@ export default function Projects() {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+                  className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                 >
                   <Github size={14} />
                   <span>{t.projects.viewCode}</span>
@@ -96,6 +99,6 @@ export default function Projects() {
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }

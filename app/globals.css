@@ -1,46 +1,42 @@
 @import "tailwindcss";
 
-/* Light mode colors (minimal, clean) */
+/* Light mode colors (GitHub-inspired) */
 :root,
 .light {
-  --background: #ffffff;
-  --foreground: #0d0d0d;
-  --border: #e5e7eb;
-  --accent: #2563eb;
-  --muted: #6b7280;
-  --surface: #f9fafb;
+  --background: #f6f8fa;
+  --foreground: #1f2328;
+  --border: #d1d9e0;
+  --accent: #0969da;
+  --muted: #59636e;
+  --surface: #ffffff;
+  --github-green: #1f883d;
 }
 
-/* Dark mode colors (soft, not pure black) */
+/* Dark mode colors (GitHub dark theme) */
 .dark {
-  --background: #0f0f0f;
-  --foreground: #ececec;
-  --border: #27272a;
-  --accent: #3b82f6;
-  --muted: #a1a1aa;
-  --surface: #18181b;
+  --background: #0d1117;
+  --foreground: #e6edf3;
+  --border: #30363d;
+  --accent: #2f81f7;
+  --muted: #7d8590;
+  --surface: #161b22;
+  --github-green: #3fb950;
 }
 
 html {
   margin: 0;
   padding: 0;
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
   font-weight: 400;
   line-height: 1.6;
-  letter-spacing: -0.011em;
+  letter-spacing: -0.003em;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
