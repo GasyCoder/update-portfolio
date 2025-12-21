@@ -14,7 +14,7 @@ export default function GitHubSidebar() {
         <div className="flex justify-center">
           <div className="relative">
             <Image
-              src="/profile.jpg"
+              src="/profile.jpeg"
               alt="GasyCoder Profile"
               width={180}
               height={180}
