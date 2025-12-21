@@ -1,12 +1,18 @@
+'use client';
+
+import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
+import GitHubSidebar from '@/components/GitHubSidebar';
+import ProfileTabs from '@/components/ProfileTabs';
+import OverviewSection from '@/components/OverviewSection';
 import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
 export default function Home() {
+  const [activeTab, setActiveTab] = useState('overview');
+
   return (
     <main className="relative min-h-screen w-full overflow-hidden bg-slate-50 dark:bg-[#05060a] transition-colors">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -18,12 +24,33 @@ export default function Home() {
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl px-6 pb-16 pt-10 md:px-8 md:pt-14">
         <div className="flex w-full flex-col gap-12 rounded-3xl border border-white/60 bg-white/80 p-6 shadow-xl shadow-slate-200/40 backdrop-blur-lg dark:border-white/5 dark:bg-white/5 dark:shadow-none md:p-10">
           <Navigation />
-          <Hero />
-          <About />
-          <Projects />
-          <Skills />
-          <Contact />
-          <Footer />
+        </div>
+      </div>
+
+      {/* Main Content Container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar - Left Column */}
+          <GitHubSidebar />
+
+          {/* Main Content - Right Column */}
+          <div className="flex-1 min-w-0">
+            {/* Profile Tabs */}
+            <ProfileTabs activeTab={activeTab} onTabChange={setActiveTab} />
+
+            {/* Tab Content */}
+            <div>
+              {activeTab === 'overview' && <OverviewSection />}
+              {activeTab === 'projects' && <Projects />}
+              {activeTab === 'skills' && <Skills />}
+              {activeTab === 'contact' && <Contact />}
+            </div>
+
+            {/* Footer */}
+            <div className="mt-12">
+              <Footer />
+            </div>
+          </div>
         </div>
       </div>
     </main>
