@@ -11,7 +11,7 @@ export default function OverviewSection() {
   return (
     <div className="space-y-8">
       {/* About Section */}
-      <div className="p-6 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-[#0d1117]">
+      <div className="p-6 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-3">
           About
         </h2>
