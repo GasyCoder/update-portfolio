@@ -1,25 +1,27 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { fetchGitHubContributions, type GitHubContribution } from '@/lib/github';
 
 export default function ContributionGraph() {
-  const [contributions, setContributions] = useState<number[][]>([]);
+  const [contributions, setContributions] = useState<GitHubContribution[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [totalContributions, setTotalContributions] = useState(0);
 
   useEffect(() => {
-    // Generate random contribution data for the last 12 months (52 weeks)
-    const weeks = 52;
-    const daysPerWeek = 7;
-    const data: number[][] = [];
-
-    for (let week = 0; week < weeks; week++) {
-      const weekData: number[] = [];
-      for (let day = 0; day < daysPerWeek; day++) {
-        // Random contribution count (0-4 levels)
-        weekData.push(Math.floor(Math.random() * 5));
+    async function loadContributions() {
+      try {
+        const data = await fetchGitHubContributions();
+        setContributions(data);
+        setTotalContributions(data.reduce((sum, day) => sum + day.count, 0));
+      } catch (error) {
+        console.error('Error loading contributions:', error);
+      } finally {
+        setLoading(false);
       }
-      data.push(weekData);
     }
-    setContributions(data);
+
+    loadContributions();
   }, []);
 
   const getContributionColor = (level: number) => {
@@ -33,50 +35,90 @@ export default function ContributionGraph() {
     return colors[level as keyof typeof colors] || colors[0];
   };
 
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  // Group contributions by weeks
+  const groupByWeeks = () => {
+    const weeks: GitHubContribution[][] = [];
+    let currentWeek: GitHubContribution[] = [];
+
+    contributions.forEach((contribution, index) => {
+      const date = new Date(contribution.date);
+      const dayOfWeek = date.getDay(); // 0 = Sunday, 6 = Saturday
+
+      currentWeek.push(contribution);
+
+      // If it's Saturday or the last contribution, push the week
+      if (dayOfWeek === 6 || index === contributions.length - 1) {
+        weeks.push([...currentWeek]);
+        currentWeek = [];
+      }
+    });
+
+    return weeks;
+  };
+
+  const weeks = groupByWeeks();
+
+  if (loading) {
+    return (
+      <div className="mb-8">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          Contribution Activity
+        </h2>
+        <div className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900 animate-pulse">
+          <div className="h-32 bg-gray-200 dark:bg-gray-800 rounded" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mb-8">
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
-        Contribution Activity
-      </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+          Contribution Activity
+        </h2>
+        {totalContributions > 0 && (
+          <span className="text-sm text-gray-600 dark:text-gray-400">
+            {totalContributions} contributions in the last year
+          </span>
+        )}
+      </div>
 
       <div className="p-4 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900">
-        {/* Month labels */}
-        <div className="flex gap-1 mb-2 text-xs text-gray-600 dark:text-gray-400 ml-8">
-          {months.map((month, index) => (
-            <div key={index} className="w-12" style={{ marginLeft: index === 0 ? 0 : '32px' }}>
-              {month}
-            </div>
-          ))}
-        </div>
-
-        {/* Contribution grid */}
-        <div className="flex gap-1 overflow-x-auto">
-          {contributions.map((week, weekIndex) => (
-            <div key={weekIndex} className="flex flex-col gap-1">
-              {week.map((level, dayIndex) => (
-                <div
-                  key={dayIndex}
-                  className={`w-3 h-3 rounded-sm ${getContributionColor(level)}`}
-                  title={`${level} contributions`}
-                />
+        {contributions.length === 0 ? (
+          <div className="text-center py-8 text-gray-600 dark:text-gray-400">
+            No contribution data available
+          </div>
+        ) : (
+          <>
+            {/* Contribution grid */}
+            <div className="flex gap-1 overflow-x-auto pb-2">
+              {weeks.map((week, weekIndex) => (
+                <div key={weekIndex} className="flex flex-col gap-1">
+                  {week.map((day) => (
+                    <div
+                      key={day.date}
+                      className={`w-3 h-3 rounded-sm ${getContributionColor(day.level)} transition-colors`}
+                      title={`${day.count} contributions on ${new Date(day.date).toLocaleDateString()}`}
+                    />
+                  ))}
+                </div>
               ))}
             </div>
-          ))}
-        </div>
 
-        {/* Legend */}
-        <div className="flex items-center gap-2 mt-4 text-xs text-gray-600 dark:text-gray-400">
-          <span>Less</span>
-          {[0, 1, 2, 3, 4].map((level) => (
-            <div
-              key={level}
-              className={`w-3 h-3 rounded-sm ${getContributionColor(level)}`}
-            />
-          ))}
-          <span>More</span>
-        </div>
+            {/* Legend */}
+            <div className="flex items-center gap-2 mt-4 text-xs text-gray-600 dark:text-gray-400">
+              <span>Less</span>
+              {[0, 1, 2, 3, 4].map((level) => (
+                <div
+                  key={level}
+                  className={`w-3 h-3 rounded-sm ${getContributionColor(level)}`}
+                />
+              ))}
+              <span>More</span>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
