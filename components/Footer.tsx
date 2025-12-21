@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-4 mt-6 text-center text-xs text-gray-600">
+    <footer className="py-4 mt-6 text-center text-xs text-gray-600 dark:text-gray-600">
       © {currentYear} GasyCoder • {t.footer.rights}
     </footer>
   );
